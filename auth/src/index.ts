@@ -1,20 +1,15 @@
+import {json} from 'body-parser';
 import express from 'express';
 import 'express-async-errors';
-import {json} from 'body-parser';
-import cookieSession from 'cookie-session';
 import mongoose from 'mongoose';
-import router from './router';
 import errorHandler from './errors/handler';
 import {NotFoundError} from './errors/not-found-error';
+import router from './router';
 
 const app = express();
 
 app.set('trust proxy', true);
 app.use(json());
-app.use(cookieSession({
-  signed: false,
-  secure: true
-}));
 
 app.use('/api/users', router);
 app.all('*', async () => {
@@ -23,6 +18,10 @@ app.all('*', async () => {
 app.use(errorHandler);
 
 const start = async() => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET must be defined');
+  }
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
   } catch (err) {

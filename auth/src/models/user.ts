@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, {Document, Model} from "mongoose";
 
 export interface UserSignInDto {
   email: string;
@@ -45,4 +45,5 @@ userSchema.statics.build = (attributes: UserAttr) => {
 // Create the User model
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
-export { User };
+export {User};
+

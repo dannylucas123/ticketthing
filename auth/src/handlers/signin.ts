@@ -1,18 +1,11 @@
 import {Request, Response} from 'express';
-import {validationResult} from 'express-validator';
 import jwt from 'jsonwebtoken';
-import {RequestValidationError} from '../errors/validation-error';
-import {User, UserSignInDto} from '../models/user';
 import {UserDoesNotExist} from '../errors/user-does-not-exists-error';
 import {compareHash} from '../helpers/password';
+import {User, UserSignInDto} from '../models/user';
+import {BadRequestError} from '../errors/bad-request-error';
 
 const signIn = async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    throw new RequestValidationError(errors.array());
-  }
-
   const {email, password} = req.body as UserSignInDto;
 
   const exists = await User.findOne({email});
@@ -20,13 +13,13 @@ const signIn = async (req: Request, res: Response) => {
     throw new UserDoesNotExist();
   }
 
-  const match = await compareHash(password, exists.password)
+  const match = await compareHash(password, exists.password);
 
   if (!match) {
-    throw new UserDoesNotExist();
+    throw new BadRequestError();
   }
 
-  const accessToken = jwt.sign({email}, 'secretkey213');
+  const accessToken = jwt.sign({email: exists.email, id: exists.id}, process.env.JWT_SECRET!);
 
   res.send({accessToken});
 };
