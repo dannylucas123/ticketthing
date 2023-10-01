@@ -1,22 +1,6 @@
-import {json} from 'body-parser';
-import express from 'express';
 import 'express-async-errors';
 import mongoose from 'mongoose';
-import errorHandler from './errors/handler';
-import {NotFoundError} from './errors/not-found-error';
-import currentUserMw from './middlewares/current-user';
-import router from './router';
-
-const app = express();
-
-app.set('trust proxy', true);
-app.use(json());
-
-app.use('/api/users', currentUserMw, router);
-app.all('*', async () => {
-  throw new NotFoundError();
-});
-app.use(errorHandler);
+import {app} from './app';
 
 const start = async() => {
   if (!process.env.JWT_SECRET) {
