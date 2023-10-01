@@ -1,11 +1,11 @@
 import express from 'express';
 import {body} from 'express-validator';
-import signUp from './handlers/signup';
-import signIn from './handlers/signin';
-import {validateRequest} from './middlewares/validate-request';
 import currentUser from './handlers/currentuser';
+import signIn from './handlers/signin';
 import signOut from './handlers/signout';
-import currentUserMw from './middlewares/current-user';
+import signUp from './handlers/signup';
+import {validateRequest} from './middlewares/validate-request';
+import {verifyAuth} from './middlewares/verify-auth';
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post('/signin', [
     .withMessage('No password supplied.')
 ], validateRequest, signIn);
 
-router.post('/currentuser', currentUserMw, currentUser);
+router.post('/currentuser', verifyAuth, currentUser);
 
 router.post('/signout', signOut);
 
