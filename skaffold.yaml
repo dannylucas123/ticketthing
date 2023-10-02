@@ -10,6 +10,14 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
+    - image: ljwdlucas1/ticketingclient
+      context: client
+      sync:
+        manual:
+          - src: pages/**/*.jsx
+            dest: .
+      docker:
+        dockerfile: Dockerfile
   local:
     push: false
 manifests:

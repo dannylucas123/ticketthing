@@ -16,4 +16,11 @@ spec:
           service:
             name: auth-srv
             port:
-              number: 4000
+              number: 3000
+      - path: /?(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: ticketingclient-srv
+            port:
+              number: 3000
