@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {UserExistsError} from '../errors/user-exists-error';
+import {UserExistsError} from '@superdanny/common';
 import {toHash} from '../helpers/password';
 import {User, UserSignUpDto} from '../models/user';
 

@@ -1,7 +1,5 @@
 import express, {json} from "express";
-import errorHandler from "./errors/handler";
-import {NotFoundError} from "./errors/not-found-error";
-import currentUserMw from "./middlewares/current-user";
+import {errorHandler, NotFoundError, currentUserMw} from '@superdanny/common';
 import router from "./router";
 
 const app = express();

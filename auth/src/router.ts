@@ -4,8 +4,7 @@ import currentUser from './handlers/currentuser';
 import signIn from './handlers/signin';
 import signOut from './handlers/signout';
 import signUp from './handlers/signup';
-import {validateRequest} from './middlewares/validate-request';
-import {verifyAuth} from './middlewares/verify-auth';
+import {validateRequest, verifyAuth} from '@superdanny/common';
 
 const router = express.Router();
 

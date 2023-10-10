@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {NotAuthenticatedError} from '../errors/not-authenticated-error';
+import {NotAuthenticatedError} from '@superdanny/common';
 
 const currentUser = async (req: Request, res: Response) => {
   if (req.currentUser) {
