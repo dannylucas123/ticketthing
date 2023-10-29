@@ -7,7 +7,7 @@ const app = express();
 app.set('trust proxy', true);
 app.use(json());
 
-app.use('/api/users', currentUserMw, router);
+app.use('/api/tickets', currentUserMw, router);
 app.all('*', async () => {
   throw new NotFoundError();
 });

@@ -1,34 +1,13 @@
-import express from 'express';
-import {body} from 'express-validator';
-import currentUser from './handlers/currentuser';
-import signIn from './handlers/signin';
-import signOut from './handlers/signout';
-import signUp from './handlers/signup';
 import {validateRequest, verifyAuth} from '@superdanny/common';
+import express from 'express';
+import createTicket from './handler/create-ticket';
+import {body} from 'express-validator';
 
 const router = express.Router();
 
-router.post('/signup', [
-  body('email')
-    .isEmail()
-    .withMessage('Invalid email.'),
-  body('password')
-    .trim()
-    .isLength({ min: 6, max: 30 })
-    .withMessage('Length must be between 6 and 30.')
-], validateRequest, signUp);
-
-router.post('/signin', [
-  body('email')
-    .notEmpty()
-    .withMessage('No password supplied.'),
-  body('password')
-    .notEmpty()
-    .withMessage('No password supplied.')
-], validateRequest, signIn);
-
-router.post('/currentuser', verifyAuth, currentUser);
-
-router.post('/signout', signOut);
+router.post('', verifyAuth, [
+  body('title').not().isEmpty().withMessage('Title is required'),
+  body('price').isFloat({ gt: 0 }).withMessage('Price must be greater than 0')
+], validateRequest, createTicket);
 
 export default router;

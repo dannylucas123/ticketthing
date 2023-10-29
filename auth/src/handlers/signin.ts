@@ -1,7 +1,6 @@
 import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
-import {UserDoesNotExist,BadRequestError} from '@superdanny/common';
-import {compareHash} from '../helpers/password';
+import {UserDoesNotExist,BadRequestError,compareHash} from '@superdanny/common';
 import {User, UserSignInDto} from '../models/user';
 
 const signIn = async (req: Request, res: Response) => {

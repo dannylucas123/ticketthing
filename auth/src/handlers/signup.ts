@@ -1,6 +1,5 @@
 import {Request, Response} from 'express';
-import {UserExistsError} from '@superdanny/common';
-import {toHash} from '../helpers/password';
+import {UserExistsError,toHash} from '@superdanny/common';
 import {User, UserSignUpDto} from '../models/user';
 
 const signUp = async (req: Request, res: Response) => {
